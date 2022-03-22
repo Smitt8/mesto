@@ -1,0 +1,9 @@
+.profile__info {
+  max-width: 336px;
+  color: #fff;
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  align-items: baseline;
+  column-gap: 18px;
+  row-gap: 16px;
+}

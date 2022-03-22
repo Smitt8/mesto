@@ -1,0 +1,5 @@
+.profile__user {
+  display: flex;
+  column-gap: 45px;
+  align-items: center;
+}

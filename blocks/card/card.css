@@ -1,0 +1,16 @@
+.card {
+  max-width: 282px;
+  max-height: 361px;
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+/*
+@media screen and (max-width: 1279px){
+  .card {
+    max-width: 250px;
+    max-height: 331px;
+  }
+}
+*/

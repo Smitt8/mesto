@@ -1,7 +1,65 @@
 .profile__edit-btn {
+  margin: 4px 0 0;
+  padding: 0;
   background-color: #000;
   border: 1px #fff solid;
   box-sizing: border-box;
   width: 24px;
   height: 24px;
+  position: relative;
+}
+
+.profile__edit-btn::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background-image: url('../../../images/profile/profile__edit-img.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  top: 6px;
+  left: 6px;
+}
+
+@media screen and (max-width: 1200px){
+  .profile__edit-btn {
+    width: 20px;
+    height: 20px;
+  }
+
+  .profile__edit-btn::before {
+    width: 9px;
+    height: 9px;
+    top: 5px;
+    left: 5px;
+  }
+}
+
+@media screen and (max-width: 1023px){
+  .profile__edit-btn {
+    margin: 0;
+    width: 17px;
+    height: 17px;
+  }
+
+  .profile__edit-btn::before {
+    width: 9.25px;
+    height: 9.25px;
+    top: 3px;
+    left: 3px;
+  }
+}
+
+@media screen and (max-width: 767px){
+  .profile__edit-btn {
+    width: 18px;
+    height: 18px;
+  }
+
+  .profile__edit-btn::before {
+    width: 7.25px;
+    height: 7.25px;
+    top: 4px;
+    left: 4px;
+  }
 }

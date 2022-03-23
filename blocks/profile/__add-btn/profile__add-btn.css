@@ -1,9 +1,49 @@
 .profile__add-btn {
   width: 150px;
   height: 50px;
+  margin: 0;
+  padding: 0;
   background-color: #000;
   border: 2px #fff solid;
   box-sizing: border-box;
   border-radius: 2px;
-  margin-top: 38.75px;
+  position: relative;
+}
+
+.profile__add-btn::before {
+  content: '';
+  width: 22px;
+  height: 22px;
+  background-image: url('../../../images/profile/profile__add-img.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 12px;
+  left: 62px;
+}
+
+@media screen and (max-width: 1023px){
+  .profile__add-btn {
+    width: 100px;
+    height: 35px;
+  }
+
+  .profile__add-btn::before {
+    width: 16px;
+    height: 16px;
+    top: 7.5px;
+    left: 40px;
+  }
+}
+
+@media screen and (max-width: 767px){
+  .profile__add-btn {
+    width: 282px;
+    height: 50px;
+  }
+
+  .profile__add-btn::before {
+    top: 15px;
+    left: 131px;
+  }
 }

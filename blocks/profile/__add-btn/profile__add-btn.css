@@ -8,6 +8,12 @@
   box-sizing: border-box;
   border-radius: 2px;
   position: relative;
+  transition: opacity 0.2s linear;
+  cursor: pointer;
+}
+
+.profile__add-btn:hover {
+  opacity: 0.6;
 }
 
 .profile__add-btn::before {
@@ -16,6 +22,7 @@
   height: 22px;
   background-image: url('../../../images/profile/profile__add-img.svg');
   background-position: center;
+  background-size: 100%;
   background-repeat: no-repeat;
   position: absolute;
   top: 12px;

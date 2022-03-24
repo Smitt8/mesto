@@ -7,6 +7,7 @@
   width: 24px;
   height: 24px;
   position: relative;
+  cursor: pointer;
 }
 
 .profile__edit-btn::before {
@@ -20,7 +21,6 @@
   position: absolute;
   top: 6px;
   left: 6px;
-  cursor: pointer;
 }
 
 @media screen and (max-width: 1200px){

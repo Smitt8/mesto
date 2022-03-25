@@ -1,14 +1,16 @@
-let popUp = document.querySelector('.popup');
 let profile = document.querySelector('.content').querySelector('.profile');
-
 profile.querySelector('.profile__edit-btn').addEventListener('click', editHandler);
-popUp.querySelector('.popup__container').addEventListener('reset', editHandler);
-popUp.querySelector('.popup__container').addEventListener('submit', saveHandler);
-popUp.querySelector('.popup__container').addEventListener('keydown', e => {
-  if (e.key === 'Enter') {
+
+let popUp = document.querySelector('.popup');
+let popUpContainer = popUp.querySelector('.popup__container');
+
+popUpContainer.addEventListener('reset', editHandler);
+popUpContainer.addEventListener('submit', saveHandler);
+document.addEventListener('keydown', e => {
+  if (popUp.classList.contains('popup_opened') && e.key === 'Enter') {
     saveHandler(e);
   }
-})
+});
 
 
 

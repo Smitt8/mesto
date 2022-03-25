@@ -1,11 +1,11 @@
 .content {
   max-width: calc(100% - (200px * 2));
   margin: 0 auto;
-  padding-top: 36.25px;
+  padding-top: 39px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  row-gap: 47.25px;
+  row-gap: 53px;
 }
 
 @media screen and (max-width: 1279px) {

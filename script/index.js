@@ -17,8 +17,8 @@ document.addEventListener('keydown', e => {
 function editHandler() {
   popUp.classList.toggle('popup_opened');
   if (popUp.classList.contains('popup_opened')) {
-    document.getElementById('user-name').value = profile.querySelector('.profile__name').textContent;
-    document.getElementById('user-job').value = profile.querySelector('.profile__profession').textContent;
+    document.querySelector('#user-name').value = profile.querySelector('.profile__name').textContent;
+    document.querySelector('#user-job').value = profile.querySelector('.profile__profession').textContent;
   }
 }
 
@@ -26,7 +26,7 @@ function saveHandler(e) {
 
   e.preventDefault();
 
-  profile.querySelector('.profile__name').textContent = document.getElementById('user-name').value;
-  profile.querySelector('.profile__profession').textContent = document.getElementById('user-job').value;
+  profile.querySelector('.profile__name').textContent = document.querySelector('#user-name').value;
+  profile.querySelector('.profile__profession').textContent = document.querySelector('#user-job').value;
   editHandler();
 }

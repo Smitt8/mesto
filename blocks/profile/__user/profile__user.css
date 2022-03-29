@@ -20,6 +20,6 @@
   .profile__user {
     flex-direction: column;
     column-gap: 0;
-    row-gap: 22.25px;
+    row-gap: 28px;
   }
 }

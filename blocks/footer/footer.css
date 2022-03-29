@@ -1,7 +1,7 @@
 .footer {
   max-width: calc(100% - (200px * 2));
   margin: 0 auto;
-  padding: 65px 0 58px;
+  padding: 68px 0 58px;
   box-sizing: border-box;
 }
 
@@ -21,6 +21,6 @@
 @media screen and (max-width: 767px) {
   .footer {
     max-width: calc(100% - (19px * 2));;
-    padding: 46px 0 35px;
+    padding: 51px 0 35px;
   }
 }

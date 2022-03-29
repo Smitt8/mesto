@@ -13,6 +13,6 @@
   .profile {
     flex-direction: column;
     column-gap: 0;
-    row-gap: 36px;
+    row-gap: 31px;
   }
 }

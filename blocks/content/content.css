@@ -24,6 +24,7 @@
 @media screen and (max-width: 767px) {
   .content {
     max-width: 100%;
-    padding-top: 38.25px;
+    padding-top: 42px;
+    row-gap: 36px;
   }
 }

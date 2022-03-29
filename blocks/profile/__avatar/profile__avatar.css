@@ -21,7 +21,7 @@
 
 @media screen and (max-width: 767px){
   .profile__avatar {
-    max-width: 127.5px;
-    max-height: 127.5px;
+    max-width: 119px;
+    max-height: 119px;
   }
 }

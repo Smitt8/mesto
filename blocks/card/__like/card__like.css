@@ -2,11 +2,8 @@
   width: 30px;
   height: 19px;
   border: 0;
-  padding: 0;
   position: relative;
   background-color: #fff;
-  transition: opacity 0.2s linear;
-  cursor: pointer;
 }
 
 .card__like:hover {

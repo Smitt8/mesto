@@ -1,0 +1,14 @@
+.button {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  color: #fff;
+  border: 1px #fff solid;
+  box-sizing: border-box;
+  transition: opacity 0.2s linear;
+  cursor: pointer;
+}
+
+.button:hover {
+  opacity: 0.6;
+}

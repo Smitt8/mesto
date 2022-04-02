@@ -1,19 +1,8 @@
 .profile__add-btn {
   width: 150px;
   height: 50px;
-  margin: 0;
-  padding: 0;
-  background-color: #000;
-  border: 2px #fff solid;
-  box-sizing: border-box;
   border-radius: 2px;
   position: relative;
-  transition: opacity 0.2s linear;
-  cursor: pointer;
-}
-
-.profile__add-btn:hover {
-  opacity: 0.6;
 }
 
 .profile__add-btn::before {
@@ -38,7 +27,7 @@
   .profile__add-btn::before {
     width: 16px;
     height: 16px;
-    top: 7.5px;
+    top: 8px;
     left: 40px;
   }
 }

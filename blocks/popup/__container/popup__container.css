@@ -2,7 +2,8 @@
   width: 100%;
   max-width: 430px;
   max-height: 330px;
-  margin: 195px auto;
+  margin: 50vh auto;
+  transform: translateY(-50%);
   position: relative;
   background-color: #fff;
   display: flex;
@@ -14,10 +15,9 @@
   box-sizing: border-box;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 574px) {
   .popup__container {
     max-width: 282px;
-    max-height: 322px;
-    padding: 25px 22px;
+    padding: 26px 22px;
   }
 }

@@ -1,17 +1,13 @@
 .popup__save {
   max-width: 358px;
   max-height: 50px;
-  margin-top: 18px;
+  margin-top: 20px;
   padding: 14px 124px 18px 125px;
-  background-color: #000;
-  color: #fff;
   border: 0;
   border-radius: 2px;
   font-size: 18px;
   line-height: 22px;
   text-align: center;
-  transition: opacity 0.2s linear;
-  cursor: pointer;
 }
 
 .popup__save:hover {
@@ -22,9 +18,9 @@
   .popup__save {
     max-width: 358px;
     max-height: 50px;
-    margin-top: 15px;
+    margin-top: 17px;
     padding: 14px 82px;
     font-size: 14px;
-  line-height: 17px;
+    line-height: 17px;
   }
 }

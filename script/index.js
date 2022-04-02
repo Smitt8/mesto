@@ -3,22 +3,16 @@ profile.querySelector('.profile__edit-btn').addEventListener('click', editHandle
 
 let popUp = document.querySelector('.popup');
 let popUpContainer = popUp.querySelector('.popup__container');
+let popUpForm = popUpContainer.querySelector('.popup__form');
 
-popUpContainer.addEventListener('reset', editHandler);
-popUpContainer.addEventListener('submit', saveHandler);
-document.addEventListener('keydown', e => {
-  if (popUp.classList.contains('popup_opened') && e.key === 'Enter') {
-    saveHandler(e);
-  }
-});
-
-
+popUpContainer.querySelector('.popup__close-btn').addEventListener('click', editHandler);
+popUpForm.addEventListener('submit', saveHandler);
 
 function editHandler() {
   popUp.classList.toggle('popup_opened');
   if (popUp.classList.contains('popup_opened')) {
-    document.querySelector('#user-name').value = profile.querySelector('.profile__name').textContent;
-    document.querySelector('#user-job').value = profile.querySelector('.profile__profession').textContent;
+    popUpForm.querySelector('.popup__input_type_name').value = profile.querySelector('.profile__name').textContent;
+    popUpForm.querySelector('.popup__input_type_job').value = profile.querySelector('.profile__profession').textContent;
   }
 }
 
@@ -26,7 +20,7 @@ function saveHandler(e) {
 
   e.preventDefault();
 
-  profile.querySelector('.profile__name').textContent = document.querySelector('#user-name').value;
-  profile.querySelector('.profile__profession').textContent = document.querySelector('#user-job').value;
+  profile.querySelector('.profile__name').textContent = document.querySelector('.popup__input_type_name').value;
+  profile.querySelector('.profile__profession').textContent = document.querySelector('.popup__input_type_job').value;
   editHandler();
 }

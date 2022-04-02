@@ -2,7 +2,7 @@
   max-width: calc(100% - (200px * 2));
   min-height: 119px;
   margin: 0 auto;
-  border-bottom: 1px #545454 solid;
+  border-bottom: 1px rgba(84, 84, 84, 0.7) solid;
   padding-top: 45px;
   box-sizing: border-box;
 }

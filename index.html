@@ -28,48 +28,6 @@
     </section>
     <section class="places">
       <ul class="photo-grid">
-        <li class="card">
-          <img src="./images/photo-grid/photo-grid__img1.jpg" alt="Старый храм в горах" class="card__photo">
-          <div class="card__info">
-            <h3 class="card__heading">Карачаевск</h3>
-            <button class="button card__like" type="button" aria-label="Поставить лайк"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img src="./images/photo-grid/photo-grid__img2.jpg" alt="Равнина вдали гора Эльбрус" class="card__photo">
-          <div class="card__info">
-            <h3 class="card__heading">Гора Эльбрус</h3>
-            <button class="button card__like" type="button" aria-label="Поставить лайк"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img src="./images/photo-grid/photo-grid__img3.jpg" alt="Вид на заснеженную гору" class="card__photo">
-          <div class="card__info">
-            <h3 class="card__heading">Домбай</h3>
-            <button class="button card__like" type="button" aria-label="Поставить лайк"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img src="./images/photo-grid/photo-grid__img2.jpg" alt="Равнина вдали гора Эльбрус" class="card__photo">
-          <div class="card__info">
-            <h3 class="card__heading">Гора Эльбрус</h3>
-            <button class="button card__like" type="button" aria-label="Поставить лайк"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img src="./images/photo-grid/photo-grid__img3.jpg" alt="Вид на заснеженную гору" class="card__photo">
-          <div class="card__info">
-            <h3 class="card__heading">Домбай</h3>
-            <button class="button card__like" type="button" aria-label="Поставить лайк"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img src="./images/photo-grid/photo-grid__img1.jpg" alt="Старый храм в горах" class="card__photo">
-          <div class="card__info">
-            <h3 class="card__heading">Карачаево-Черкесия</h3>
-            <button class="button card__like" type="button" aria-label="Поставить лайк"></button>
-          </div>
-        </li>
       </ul>
     </section>
   </main>
@@ -89,6 +47,15 @@
       </form>
     </div>
   </div>
+  <template id="template-card">
+    <li class="card">
+      <img class="card__photo">
+      <div class="card__info">
+        <h3 class="card__heading"></h3>
+        <button class="button card__like" type="button" aria-label="Поставить лайк"></button>
+      </div>
+    </li>
+  </template>
   <script src="./script/index.js"></script>
 </body>
 </html>

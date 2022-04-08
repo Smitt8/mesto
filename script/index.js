@@ -32,6 +32,10 @@ function toogleLike(e) {
   e.target.classList.toggle('card__like_active');
 }
 
+function removeCard(e) {
+  e.target.parentElement.remove();
+}
+
 function createCard(name, link) {
   const card = templateCard.content.firstElementChild.cloneNode(true);
   const photo = card.querySelector('.card__photo');
@@ -41,7 +45,7 @@ function createCard(name, link) {
   card.querySelector('.card__heading').textContent = name;
 
   card.querySelector('.card__like').addEventListener('click', toogleLike);
-
+  card.querySelector('.card__remove').addEventListener('click', removeCard);
   return card;
 }
 

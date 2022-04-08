@@ -1,0 +1,13 @@
+
+.card__remove {
+  position: absolute;
+  width: 18px;
+  height: 19px;
+  background-image: url(../../../images/photo-grid/photo-grid__remove.png);
+  background-size: 100%;
+  background-color: transparent;
+  border: 0;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+}

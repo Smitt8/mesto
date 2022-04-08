@@ -28,6 +28,10 @@ const initialCards = [
 const content = document.querySelector('.content');
 const templateCard = document.querySelector('#template-card');
 
+function toogleLike(e) {
+  e.target.classList.toggle('card__like_active');
+}
+
 function createCard(name, link) {
   const card = templateCard.content.firstElementChild.cloneNode(true);
   const photo = card.querySelector('.card__photo');
@@ -35,6 +39,8 @@ function createCard(name, link) {
   photo.alt = name;
 
   card.querySelector('.card__heading').textContent = name;
+
+  card.querySelector('.card__like').addEventListener('click', toogleLike);
 
   return card;
 }

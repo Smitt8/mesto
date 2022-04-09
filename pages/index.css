@@ -20,7 +20,7 @@
 @import url(../blocks/profile/__add-btn/profile__add-btn.css);
 
 @import url(../blocks/places/places.css);
-@import url(../blocks/photo-grid/photo-grid.css);
+@import url(../blocks/cards/cards.css);
 @import url(../blocks/card/card.css);
 @import url(../blocks/card/__photo/card__photo.css);
 @import url(../blocks/card/__remove/card__remove.css);

@@ -67,7 +67,7 @@ function createCard(name, link) {
   return card;
 }
 
-const cards = content.querySelector('.photo-grid');
+const cards = content.querySelector('.cards');
 
 initialCards.forEach(element => {
   cards.append(createCard(element.name, element.link));

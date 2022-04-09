@@ -28,12 +28,28 @@ const initialCards = [
 const content = document.querySelector('.content');
 const templateCard = document.querySelector('#template-card');
 
+const popUpView = document.querySelector('.popup_type_viewer');
+popUpView.querySelector('.popup__close-btn').addEventListener('click', (e) => {
+  closePopUp(popUpView);
+});
+
 function toogleLike(e) {
   e.target.classList.toggle('card__like_active');
 }
 
 function removeCard(e) {
   e.target.parentElement.remove();
+}
+
+function displayView(e) {
+  openPopUp(popUpView);
+
+  const popUpImg = popUpView.querySelector('.popup__img');
+
+  popUpImg.src = e.target.src;
+  popUpImg.alt = e.target.alt;
+
+  popUpView.querySelector('.popup__text').textContent = e.target.alt;
 }
 
 function createCard(name, link) {
@@ -46,6 +62,8 @@ function createCard(name, link) {
 
   card.querySelector('.card__like').addEventListener('click', toogleLike);
   card.querySelector('.card__remove').addEventListener('click', removeCard);
+  photo.addEventListener('click', displayView);
+
   return card;
 }
 

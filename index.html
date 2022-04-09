@@ -35,7 +35,7 @@
     <p class="footer__copyright">&COPY; 2020 Mesto Russia</p>
   </footer>
   <div class="popup popup_type_edit">
-    <div class="popup__container">
+    <div class="popup__container popup__container_type_input">
       <button class="button popup__close-btn" type="button" aria-label="Закрыть"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__form" name="user-info">
@@ -48,7 +48,7 @@
     </div>
   </div>
   <div class="popup popup_type_add">
-    <div class="popup__container">
+    <div class="popup__container popup__container_type_input">
       <button class="button popup__close-btn" type="button" aria-label="Закрыть"></button>
       <h2 class="popup__title">Новое место</h2>
       <form class="popup__form" name="new-place">
@@ -58,6 +58,15 @@
           placeholder="Ссылка на картинку">
         <button type="submit" value="Сохранить" class="button popup__save" aria-label="Сохранить">Сохранить</button>
       </form>
+    </div>
+  </div>
+  <div class="popup popup_type_viewer">
+    <div class="popup__container popup__container_type_viewer">
+      <button class="button popup__close-btn" type="button" aria-label="Закрыть"></button>
+      <figure class="popup__img-wrap">
+        <img class="popup__img">
+        <figcaption class="popup__text"></figcaption>
+      </figure>
     </div>
   </div>
   <template id="template-card">

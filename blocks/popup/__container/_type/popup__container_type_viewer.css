@@ -1,7 +1,8 @@
 .popup__container_type_viewer {
   max-width: 75vw;
   max-height: 75vh;
-  width: max-content;
+  margin: 0 auto;
+  width: auto;
   height: 100%;
   border-radius: 0;
   padding: 0;

@@ -1,9 +1,10 @@
 .popup__container_type_viewer {
   max-width: 75vw;
   max-height: 75vh;
-  width: 100%;
+  width: max-content;
   height: 100%;
   border-radius: 0;
   padding: 0;
   row-gap: 10px;
+  align-items: center;
 }

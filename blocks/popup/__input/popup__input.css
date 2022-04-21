@@ -12,3 +12,7 @@
   font-size: 14px;
   line-height: 17px;
 }
+
+.popup__input:invalid {
+  border-bottom-color: #FF0000;
+}

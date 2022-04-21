@@ -35,6 +35,8 @@ const profileJob = profile.querySelector('.profile__profession');
 const editBtn = profile.querySelector('.profile__edit-btn');
 const addBtn = profile.querySelector('.profile__add-btn');
 
+const popUps = document.querySelectorAll('.popup');
+
 const popUpEdit = document.querySelector('.popup_type_edit');
 const popUpEditForm = popUpEdit.querySelector('.popup__form');
 const popUpName = popUpEditForm.querySelector('.popup__input_type_name');
@@ -125,13 +127,25 @@ function saveHandler(e) {
   profileJob.textContent = popUpJob.value;
 }
 
+function overlayHandler(event, popUp) {
+  if (event.target === event.currentTarget) {
+    closePopUp(popUp);
+  }
+}
+
+popUps.forEach(elementPopUp => {
+  elementPopUp.addEventListener('click', (event) => {
+    overlayHandler(event, elementPopUp);
+  });
+});
+
 editBtn.addEventListener('click', editHandler);
 addBtn.addEventListener('click', ()=> {
   popUpAddForm.reset();
   openPopUp(popUpAdd);
 });
 
-popUpViewClose.addEventListener('click', (e) => {
+popUpViewClose.addEventListener('click', () => {
   closePopUp(popUpView);
 });
 

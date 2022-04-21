@@ -32,17 +32,23 @@
     </section>
   </main>
   <footer class="footer">
-    <p class="footer__copyright">&COPY; 2020 Mesto Russia</p>
+    <p class="footer__copyright">&COPY; 2022 Mesto Russia</p>
   </footer>
   <div class="popup popup_type_edit">
     <div class="popup__container popup__container_type_input">
       <button class="button popup__close-btn" type="button" aria-label="Закрыть"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__form" name="user-info">
-        <input type="text" name="user-name" id="user-name" class="popup__input popup__input_type_name"
-          placeholder="Имя Фамилия">
-        <input type="text" name="user-job" id="user-job" class="popup__input popup__input_type_job"
-          placeholder="Профессия">
+      <form class="popup__form" name="edit-user">
+        <label class="popup__label">
+          <input type="text" name="user-name" id="user-name" class="popup__input popup__input_type_name"
+            placeholder="Имя Фамилия" minlength="2" maxlength="40" required>
+          <span class="popup__input-error user-name-error">Вы пропустили адрес поля</span>
+        </label>
+        <label class="popup__label">
+          <input type="text" name="user-job" id="user-job" class="popup__input popup__input_type_job"
+            placeholder="Профессия" minlength="2" maxlength="200" required>
+          <span class="popup__input-error user-job-error">Вы пропустили адрес поля</span>
+        </label>
         <button type="submit" value="Сохранить" class="button popup__save" aria-label="Сохранить">Сохранить</button>
       </form>
     </div>
@@ -52,11 +58,18 @@
       <button class="button popup__close-btn" type="button" aria-label="Закрыть"></button>
       <h2 class="popup__title">Новое место</h2>
       <form class="popup__form" name="new-place">
-        <input type="text" name="place-name" id="place-name" class="popup__input popup__input_type_place"
-          placeholder="Название">
-        <input type="text" name="place-link" id="place-link" class="popup__input popup__input_type_link"
-          placeholder="Ссылка на картинку">
-        <button type="submit" value="Сохранить" class="button popup__save" aria-label="Сохранить">Сохранить</button>
+        <label class="popup__label">
+          <input type="text" name="place-name" id="place-name" class="popup__input popup__input_type_place"
+            placeholder="Название" minlength="2" maxlength="30" required>
+          <span class="popup__input-error place-name-error">Вы пропустили адрес поля</span>
+        </label>
+        <label class="popup__label">
+          <input type="url" name="place-link" id="place-link" class="popup__input popup__input_type_link"
+            placeholder="Ссылка на картинку" required>
+          <span class="popup__input-error place-link-error">Вы пропустили адрес поля</span>
+        </label>
+        <button type="submit" value="Сохранить" class="button popup__save button_disabled" aria-label="Сохранить"
+          disabled>Сохранить</button>
       </form>
     </div>
   </div>
@@ -79,4 +92,5 @@
   </template>
   <script src="./script/index.js"></script>
 </body>
+
 </html>

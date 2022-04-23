@@ -137,7 +137,16 @@ function overlayHandler(event, popUp) {
   }
 }
 
+function escHandler (event) {
+  if (event.key === 'Escape') {
+    const popUp = document.querySelector('.popup_opened');
+    closePopUp(popUp);
+  }
+}
+
 setProfile();
+
+document.addEventListener('keydown', escHandler);
 
 popUps.forEach(elementPopUp => {
   elementPopUp.addEventListener('click', (event) => {

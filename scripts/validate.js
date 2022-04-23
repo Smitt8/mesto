@@ -22,26 +22,24 @@ function toggleButton(form, config) {
   button.classList.toggle(config.inactiveButtonClass, !form.checkValidity());
 }
 
-function isValid(form, config) {
-  const inputs = form.querySelectorAll(config.inputSelector);
+function isValid(event, form, config) {
+  const input = event.target;
 
-  inputs.forEach(element => {
-    if (!element.validity.valid) {
-      showMessage(element, config);
-    } else {
-      hideMessage(element, config);
-    }
-  });
+  if (!input.validity.valid) {
+    showMessage(input, config);
+  } else {
+    hideMessage(input, config);
+  }
   toggleButton(form, config);
 }
 
 function enableValidation(config) {
   const forms = Array.from(document.querySelectorAll(config.formSelector));
 
-  forms.forEach(element => {
-    toggleButton(element, config);
-    element.addEventListener('input', () => {
-      isValid(element, config);
+  forms.forEach(form => {
+    toggleButton(form, config);
+    form.addEventListener('input', (event) => {
+      isValid(event, form, config);
     });
   });
 

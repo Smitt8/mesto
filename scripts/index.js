@@ -96,10 +96,12 @@ initialCards.forEach(element => {
 
 function openPopUp(popUp) {
   popUp.classList.add('popup_opened');
+  document.addEventListener('keydown', escHandler);
 }
 
 function closePopUp(popUp) {
   popUp.classList.remove('popup_opened');
+  document.removeEventListener('keydown', escHandler);
 }
 
 function setProfile() {
@@ -145,8 +147,6 @@ function escHandler (event) {
 }
 
 setProfile();
-
-document.addEventListener('keydown', escHandler);
 
 popUps.forEach(elementPopUp => {
   elementPopUp.addEventListener('click', (event) => {

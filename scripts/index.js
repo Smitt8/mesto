@@ -102,14 +102,18 @@ function closePopUp(popUp) {
   popUp.classList.remove('popup_opened');
 }
 
-function editHandler() {
+function setProfile() {
   popUpName.value = profileName.textContent;
   popUpJob.value = profileJob.textContent;
+}
+
+function editHandler() {
+  setProfile();
   openPopUp(popUpEdit);
 }
 
-function createHandler(e) {
-  e.preventDefault();
+function createHandler(event) {
+  event.preventDefault();
   
   cards.prepend(
     createCard(
@@ -119,9 +123,9 @@ function createHandler(e) {
   );
 }
 
-function saveHandler(e) {
+function saveHandler(event) {
 
-  e.preventDefault();
+  event.preventDefault();
 
   profileName.textContent = popUpName.value;
   profileJob.textContent = popUpJob.value;
@@ -133,6 +137,8 @@ function overlayHandler(event, popUp) {
   }
 }
 
+setProfile();
+
 popUps.forEach(elementPopUp => {
   elementPopUp.addEventListener('click', (event) => {
     overlayHandler(event, elementPopUp);
@@ -142,6 +148,14 @@ popUps.forEach(elementPopUp => {
 editBtn.addEventListener('click', editHandler);
 addBtn.addEventListener('click', ()=> {
   popUpAddForm.reset();
+  enableValidation({
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__save',
+    inactiveButtonClass: 'button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+  });
   openPopUp(popUpAdd);
 });
 
@@ -157,12 +171,12 @@ popUpAddClose.addEventListener('click', () => {
   closePopUp(popUpAdd);
 });
 
-popUpEditForm.addEventListener('submit', (e) => {
-  saveHandler(e);
+popUpEditForm.addEventListener('submit', (event) => {
+  saveHandler(event);
   closePopUp(popUpEdit);
 });
 
-popUpAddForm.addEventListener('submit', (e) => {
-  createHandler(e);
+popUpAddForm.addEventListener('submit', (event) => {
+  createHandler(event);
   closePopUp(popUpAdd);
 });

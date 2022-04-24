@@ -22,8 +22,7 @@ function toggleButton(form, config) {
   button.classList.toggle(config.inactiveButtonClass, !form.checkValidity());
 }
 
-function isValid(event, form, config) {
-  const input = event.target;
+function isValid(input, form, config) {
 
   if (!input.validity.valid) {
     showMessage(input, config);
@@ -39,10 +38,19 @@ function enableValidation(config) {
   forms.forEach(form => {
     toggleButton(form, config);
     form.addEventListener('input', (event) => {
-      isValid(event, form, config);
+      isValid(event.target, form, config);
     });
   });
 
+}
+
+function resetValidate(form, config) {
+  const inputs = form.querySelectorAll(config.inputSelector);
+
+  inputs.forEach(input => {
+    hideMessage(input, config);
+  });
+  toggleButton(form, config);
 }
 
 enableValidation({

@@ -1,29 +1,4 @@
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+
 
 const content = document.querySelector('.content');
 const templateCard = document.querySelector('#template-card');
@@ -56,7 +31,7 @@ const popUpText = popUpView.querySelector('.popup__text');
 const popUpViewClose = popUpView.querySelector('.popup__close-btn');
 
 
-const cards = content.querySelector('.cards');
+const cardsList = content.querySelector('.cards');
 
 function toogleLike(e) {
   e.target.classList.toggle('card__like_active');
@@ -75,13 +50,13 @@ function displayView(e) {
   openPopUp(popUpView);
 }
 
-function createCard(name, link) {
+function createCard(cardData) {
   const card = templateCard.content.firstElementChild.cloneNode(true);
   const photo = card.querySelector('.card__photo');
-  photo.src = link;
-  photo.alt = name;
+  photo.src = cardData.link;
+  photo.alt = cardData.name;
 
-  card.querySelector('.card__heading').textContent = name;
+  card.querySelector('.card__heading').textContent = cardData.name;
 
   card.querySelector('.card__like').addEventListener('click', toogleLike);
   card.querySelector('.card__remove').addEventListener('click', removeCard);
@@ -90,8 +65,8 @@ function createCard(name, link) {
   return card;
 }
 
-initialCards.forEach(element => {
-  cards.append(createCard(element.name, element.link));
+initialCards.forEach(card => {
+  cardsList.append(createCard(card));
 });
 
 function openPopUp(popUp) {
@@ -111,17 +86,24 @@ function setProfile() {
 
 function editHandler() {
   setProfile();
+  resetValidate(popUpEditForm, {
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__save',
+    inactiveButtonClass: 'button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+  });
   openPopUp(popUpEdit);
 }
 
 function createHandler(event) {
   event.preventDefault();
   
-  cards.prepend(
-    createCard(
-      popUpPlace.value,
-      popUpLink.value
-    )
+  cardsList.prepend(
+    createCard({
+      name: popUpPlace.value,
+      link: popUpLink.value
+    })
   );
 }
 
@@ -146,8 +128,6 @@ function escHandler (event) {
   }
 }
 
-setProfile();
-
 popUps.forEach(elementPopUp => {
   elementPopUp.addEventListener('click', (event) => {
     overlayHandler(event, elementPopUp);
@@ -157,8 +137,7 @@ popUps.forEach(elementPopUp => {
 editBtn.addEventListener('click', editHandler);
 addBtn.addEventListener('click', ()=> {
   popUpAddForm.reset();
-  enableValidation({
-    formSelector: '.popup__form',
+  resetValidate(popUpAddForm, {
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__save',
     inactiveButtonClass: 'button_disabled',

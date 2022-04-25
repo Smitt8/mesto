@@ -17,7 +17,7 @@ function hideMessage(input, config) {
 function toggleButton(form, config) {
   const button = form.querySelector(config.submitButtonSelector);
 
-  button.disable = !form.checkValidity();
+  button.disabled = !form.checkValidity();
 
   button.classList.toggle(config.inactiveButtonClass, !form.checkValidity());
 }

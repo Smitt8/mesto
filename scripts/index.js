@@ -1,5 +1,6 @@
-import { Card } from "./Card.js";
+import Card from "./Card.js";
 import { initialCards } from "./data.js";
+import FormValidator from "./FormValidator.js";
 
 const content = document.querySelector(".content");
 
@@ -29,7 +30,24 @@ export const popUpImg = popUpView.querySelector(".popup__img");
 export const popUpText = popUpView.querySelector(".popup__text");
 const popUpViewClose = popUpView.querySelector(".popup__close-btn");
 
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save',
+  inactiveButtonClass: 'button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
+
+const addValidate = new FormValidator(config, popUpAddForm);
+
+const editValidate = new FormValidator(config, popUpEditForm);
+
 const cardsList = content.querySelector(".cards");
+
+addValidate.enableValidation();
+
+editValidate.enableValidation();
 
 initialCards.forEach((card) => {
   const newCard = new Card(card, "#template-card");
@@ -53,14 +71,14 @@ function setProfile() {
 
 function editHandler() {
   setProfile();
-  resetValidate(popUpEditForm, {
-    inputSelector: ".popup__input",
-    submitButtonSelector: ".popup__save",
-    inactiveButtonClass: "button_disabled",
-    inputErrorClass: "popup__input_type_error",
-    errorClass: "popup__error_visible",
-  });
+  editValidate.resetValidation();
   openPopUp(popUpEdit);
+}
+
+function addHandler() {
+  popUpAddForm.reset();
+  addValidate.resetValidation();
+  openPopUp(popUpAdd);
 }
 
 function createHandler(event) {
@@ -103,17 +121,7 @@ popUps.forEach((elementPopUp) => {
 });
 
 editBtn.addEventListener("click", editHandler);
-addBtn.addEventListener("click", () => {
-  popUpAddForm.reset();
-  resetValidate(popUpAddForm, {
-    inputSelector: ".popup__input",
-    submitButtonSelector: ".popup__save",
-    inactiveButtonClass: "button_disabled",
-    inputErrorClass: "popup__input_type_error",
-    errorClass: "popup__error_visible",
-  });
-  openPopUp(popUpAdd);
-});
+addBtn.addEventListener("click", addHandler);
 
 popUpViewClose.addEventListener("click", () => {
   closePopUp(popUpView);

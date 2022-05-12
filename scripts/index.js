@@ -49,10 +49,21 @@ addValidate.enableValidation();
 
 editValidate.enableValidation();
 
+function displayView(cardData) {
+
+  popUpImg.src = cardData.link;
+  popUpImg.alt = cardData.name;
+
+  popUpText.textContent = cardData.name;
+  openPopUp(popUpView);
+}
+
 initialCards.forEach((card) => {
-  const newCard = new Card(card, "#template-card");
+  const newCard = new Card(card, "#template-card", displayView);
   cardsList.append(newCard.createCard());
 });
+
+
 
 export function openPopUp(popUp) {
   popUp.classList.add("popup_opened");
@@ -88,7 +99,8 @@ function createHandler(event) {
       name: popUpPlace.value,
       link: popUpLink.value,
     },
-    "#template-card"
+    "#template-card",
+    displayView
   );
 
   cardsList.prepend(card.createCard());

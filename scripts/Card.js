@@ -1,10 +1,9 @@
-import { popUpView, popUpImg, popUpText, openPopUp } from "./index.js";
-
 export default class Card {
-  constructor(data, cardSelector) {
+  constructor(data, templateSelector, viewerHandler) {
     this._name = data.name;
     this._link = data.link;
-    this._cardSelector = cardSelector;
+    this._cardSelector = templateSelector;
+    this._viewerHandler = viewerHandler;
   }
 
   _getTemplate() {
@@ -21,14 +20,6 @@ export default class Card {
     this._element.remove();
   }
 
-  _openViewerHandler() {
-    popUpImg.src = this._link;
-    popUpImg.alt = this._name;
-
-    popUpText.textContent = this._name;
-    openPopUp(popUpView);
-  }
-
   _setEventsListeners() {
     this._element
       .querySelector(".card__like")
@@ -38,7 +29,7 @@ export default class Card {
       .addEventListener("click", () => this._removeCard());
     this._element
       .querySelector(".card__photo")
-      .addEventListener("click", () => this._openViewerHandler());
+      .addEventListener("click", () => this._viewerHandler({name: this._name, link:this._link}));
   }
 
   createCard() {

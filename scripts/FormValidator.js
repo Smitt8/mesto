@@ -15,7 +15,7 @@ export default class FormValidator {
     this._form = form;
   }
 
-  _showMessage(input) {
+  _showMessage = (input) => {
     const error = document.querySelector(`#${input.id}-error`);
 
     error.classList.add(this._errorClass);
@@ -23,7 +23,7 @@ export default class FormValidator {
     error.textContent = input.validationMessage;
   }
 
-  _hideMessage(input) {
+  _hideMessage = (input) => {
     const error = document.querySelector(`#${input.id}-error`);
 
     error.classList.remove(this._errorClass);
@@ -31,7 +31,7 @@ export default class FormValidator {
     error.textContent = "";
   }
 
-  _toggleButton() {
+  _toggleButton = () => {
     const button = this._form.querySelector(this._submitButtonSelector);
 
     button.disabled = !this._form.checkValidity();
@@ -42,7 +42,7 @@ export default class FormValidator {
     );
   }
 
-  _isValid(input) {
+  _isValid = (input) => {
     if (!input.validity.valid) {
       this._showMessage(input);
     } else {
@@ -51,18 +51,18 @@ export default class FormValidator {
     this._toggleButton();
   }
 
-  _setEventListeners() {
+  _setEventListeners = () => {
     this._form.addEventListener("input", (event) => {
       this._isValid(event.target);
     });
   }
 
-  enableValidation() {
+  enableValidation = () => {
     this._toggleButton();
     this._setEventListeners();
   }
 
-  resetValidation() {
+  resetValidation = () => {
     const inputs = this._form.querySelectorAll(this._inputSelector);
 
     inputs.forEach((input) => {

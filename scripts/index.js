@@ -25,9 +25,9 @@ const popUpPlace = popUpAddForm.querySelector(".popup__input_type_place");
 const popUpLink = popUpAddForm.querySelector(".popup__input_type_link");
 const popUpAddClose = popUpAdd.querySelector(".popup__close-btn");
 
-export const popUpView = document.querySelector(".popup_type_viewer");
-export const popUpImg = popUpView.querySelector(".popup__img");
-export const popUpText = popUpView.querySelector(".popup__text");
+const popUpView = document.querySelector(".popup_type_viewer");
+const popUpImg = popUpView.querySelector(".popup__img");
+const popUpText = popUpView.querySelector(".popup__text");
 const popUpViewClose = popUpView.querySelector(".popup__close-btn");
 
 const config = {
@@ -49,7 +49,7 @@ addValidate.enableValidation();
 
 editValidate.enableValidation();
 
-function displayView(cardData) {
+const displayView = (cardData) => {
 
   popUpImg.src = cardData.link;
   popUpImg.alt = cardData.name;
@@ -63,9 +63,7 @@ initialCards.forEach((card) => {
   cardsList.append(newCard.createCard());
 });
 
-
-
-export function openPopUp(popUp) {
+function openPopUp(popUp) {
   popUp.classList.add("popup_opened");
   document.addEventListener("keydown", escHandler);
 }

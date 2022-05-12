@@ -6,21 +6,21 @@ export default class Card {
     this._viewerHandler = viewerHandler;
   }
 
-  _getTemplate() {
+  _getTemplate = () => {
     return document
       .querySelector(this._cardSelector)
       .content.firstElementChild.cloneNode(true);
   }
 
-  _toggleLike(event) {
+  _toggleLike = (event) => {
     event.target.classList.toggle("card__like_active");
   }
 
-  _removeCard() {
+  _removeCard = () => {
     this._element.remove();
   }
 
-  _setEventsListeners() {
+  _setEventsListeners = () => {
     this._element
       .querySelector(".card__like")
       .addEventListener("click", this._toggleLike);
@@ -32,7 +32,7 @@ export default class Card {
       .addEventListener("click", () => this._viewerHandler({name: this._name, link:this._link}));
   }
 
-  createCard() {
+  createCard = () => {
     this._element = this._getTemplate();
 
     const photo = this._element.querySelector(".card__photo");

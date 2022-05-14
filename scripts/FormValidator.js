@@ -5,7 +5,6 @@ export default class FormValidator {
    * @param {HTMLFormElement} form
    */
   constructor(config, form) {
-    this._formSelector = config.formSelector;
     this._inputSelector = config.inputSelector;
     this._submitButtonSelector = config.submitButtonSelector;
     this._inactiveButtonClass = config.inactiveButtonClass;
@@ -13,6 +12,9 @@ export default class FormValidator {
     this._errorClass = config.errorClass;
 
     this._form = form;
+
+    this._submitButton = this._form.querySelector(this._submitButtonSelector);
+    this._formInputs = Array.from(this._form.querySelectorAll(this._inputSelector));
   }
 
   _showMessage = (input) => {
@@ -28,7 +30,7 @@ export default class FormValidator {
 
     error.classList.remove(this._errorClass);
     input.classList.remove(this._inputErrorClass);
-    error.textContent = "";
+    error.textContent = '';
   }
 
   _toggleButton = () => {
@@ -52,8 +54,14 @@ export default class FormValidator {
   }
 
   _setEventListeners = () => {
-    this._form.addEventListener("input", (event) => {
+    this._form.addEventListener('input', (event) => {
       this._isValid(event.target);
+    });
+  }
+
+  _cleanInputs = () => {
+    this._formInputs.forEach((input) => {
+      this._hideMessage(input);
     });
   }
 
@@ -63,11 +71,7 @@ export default class FormValidator {
   }
 
   resetValidation = () => {
-    const inputs = this._form.querySelectorAll(this._inputSelector);
-
-    inputs.forEach((input) => {
-      this._hideMessage(input);
-    });
+    this._cleanInputs();
     this._toggleButton();
   }
 }

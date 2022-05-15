@@ -34,11 +34,10 @@ export default class FormValidator {
   }
 
   _toggleButton = () => {
-    const button = this._form.querySelector(this._submitButtonSelector);
 
-    button.disabled = !this._form.checkValidity();
+    this._submitButton.disabled = !this._form.checkValidity();
 
-    button.classList.toggle(
+    this._submitButton.classList.toggle(
       this._inactiveButtonClass,
       !this._form.checkValidity()
     );

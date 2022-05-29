@@ -4,36 +4,43 @@ import FormValidator from "./FormValidator.js";
 import Section from "./Section.js";
 import PopupWithForm from "./PopupWithForm.js";
 import PopupWithImg from "./PopupWithImg.js";
+import UserInfo from "./UserInfo.js";
 
 const content = document.querySelector(".content");
 
 const profile = content.querySelector(".profile");
-const profileName = profile.querySelector(".profile__name");
-const profileJob = profile.querySelector(".profile__profession");
-
 const btnEditProfile = profile.querySelector(".profile__edit-btn");
 const btnAddNewCard = profile.querySelector(".profile__add-btn");
 
-const popUpEdit = document.querySelector(".popup_type_edit");
-const popUpEditForm = popUpEdit.querySelector(".popup__form");
-const popUpName = popUpEditForm.querySelector(".popup__input_type_name");
-const popUpJob = popUpEditForm.querySelector(".popup__input_type_job");
-
-const popUpAdd = document.querySelector(".popup_type_add");
-const popUpAddForm = popUpAdd.querySelector(".popup__form");
-
+const userInfo = new UserInfo(".profile__name", ".profile__about");
 
 const config = {
+  formSelector: ".popup__form",
   inputSelector: ".popup__input",
+  imgSelector: ".popup__img",
+  textSelector: ".popup__text",
   submitButtonSelector: ".popup__save",
   inactiveButtonClass: "button_disabled",
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
 };
 
-const formAddValidator = new FormValidator(config, popUpAddForm);
+const popupEdit = new PopupWithForm(
+  ".popup_type_edit",
+  config,
+  handleSaveProfile
+);
 
-const formEditValidator = new FormValidator(config, popUpEditForm);
+const popupAdd = new PopupWithForm(
+  ".popup_type_add",
+  config,
+  handleCreateNewCard
+);
+
+const popupViewer = new PopupWithImg(".popup_type_viewer", config);
+
+const formAddValidator = new FormValidator(config, popupAdd.getForm());
+const formEditValidator = new FormValidator(config, popupEdit.getForm());
 
 const cardsContainer = new Section(
   {
@@ -45,49 +52,13 @@ const cardsContainer = new Section(
   ".cards"
 );
 
-const popupEdit = new PopupWithForm(
-  ".popup_type_edit",
-  {
-    formSelector: ".popup__form",
-    inputsSelector: ".popup__input",
-  },
-  handleSaveProfile
-);
-
-const popupAdd = new PopupWithForm(
-  ".popup_type_add",
-  {
-    formSelector: ".popup__form",
-    inputsSelector: ".popup__input",
-  },
-  handleCreateNewCard
-);
-
-const popupViewer = new PopupWithImg(
-  ".popup_type_viewer",
-  {
-    imgSelector: ".popup__img",
-    textSelector: ".popup__text",
-  },
-);
-
-
-formAddValidator.enableValidation();
-
-formEditValidator.enableValidation();
-
 function addCard(cardData) {
   const newCard = new Card(cardData, "#template-card", popupViewer.open);
   return newCard.createCard();
 }
 
-function setProfile() {
-  popUpName.value = profileName.textContent;
-  popUpJob.value = profileJob.textContent;
-}
-
 function handleEditProfile() {
-  setProfile();
+  popupEdit.setInputsValues(userInfo.getUserInfo());
   formEditValidator.resetValidation();
   popupEdit.open();
 }
@@ -107,11 +78,13 @@ function handleCreateNewCard(event, inputsValues) {
   );
 }
 
-function handleSaveProfile(event, {name, data}) {
+function handleSaveProfile(event, inputsValues) {
   event.preventDefault();
 
-  profileName.textContent = name;
-  profileJob.textContent = data;
+  userInfo.setUserInfo({
+    name: inputsValues["user-name"],
+    about: inputsValues["user-about"],
+  });
 }
 
 cardsContainer.renderItems();
@@ -119,6 +92,9 @@ cardsContainer.renderItems();
 popupEdit.setEventsListeners();
 popupAdd.setEventsListeners();
 popupViewer.setEventsListeners();
+
+formAddValidator.enableValidation();
+formEditValidator.enableValidation();
 
 btnEditProfile.addEventListener("click", handleEditProfile);
 btnAddNewCard.addEventListener("click", handleAddNewCard);

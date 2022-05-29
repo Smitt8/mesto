@@ -2,8 +2,8 @@ import Card from "./Card.js";
 import { initialCards } from "./data.js";
 import FormValidator from "./FormValidator.js";
 import Section from "./Section.js";
-import Popup from "./Popup.js";
 import PopupWithForm from "./PopupWithForm.js";
+import PopupWithImg from "./PopupWithImg.js";
 
 const content = document.querySelector(".content");
 
@@ -14,8 +14,6 @@ const profileJob = profile.querySelector(".profile__profession");
 const btnEditProfile = profile.querySelector(".profile__edit-btn");
 const btnAddNewCard = profile.querySelector(".profile__add-btn");
 
-const popUps = document.querySelectorAll(".popup");
-
 const popUpEdit = document.querySelector(".popup_type_edit");
 const popUpEditForm = popUpEdit.querySelector(".popup__form");
 const popUpName = popUpEditForm.querySelector(".popup__input_type_name");
@@ -23,12 +21,7 @@ const popUpJob = popUpEditForm.querySelector(".popup__input_type_job");
 
 const popUpAdd = document.querySelector(".popup_type_add");
 const popUpAddForm = popUpAdd.querySelector(".popup__form");
-const popUpPlace = popUpAddForm.querySelector(".popup__input_type_place");
-const popUpLink = popUpAddForm.querySelector(".popup__input_type_link");
 
-const popUpView = document.querySelector(".popup_type_viewer");
-const popUpImg = popUpView.querySelector(".popup__img");
-const popUpText = popUpView.querySelector(".popup__text");
 
 const config = {
   inputSelector: ".popup__input",
@@ -70,26 +63,22 @@ const popupAdd = new PopupWithForm(
   handleCreateNewCard
 );
 
+const popupViewer = new PopupWithImg(
+  ".popup_type_viewer",
+  {
+    imgSelector: ".popup__img",
+    textSelector: ".popup__text",
+  },
+);
+
 
 formAddValidator.enableValidation();
 
 formEditValidator.enableValidation();
 
-const displayView = ({ link, name }) => {
-  popUpImg.src = link;
-  popUpImg.alt = name;
-
-  popUpText.textContent = name;
-  openPopUp(popUpView);
-};
-
 function addCard(cardData) {
-  const newCard = new Card(cardData, "#template-card", displayView);
+  const newCard = new Card(cardData, "#template-card", popupViewer.open);
   return newCard.createCard();
-}
-
-function openPopUp(popUp) {
-  popUp.classList.add("popup_opened");
 }
 
 function setProfile() {
@@ -108,27 +97,28 @@ function handleAddNewCard() {
   popupAdd.open();
 }
 
-function handleCreateNewCard(event) {
+function handleCreateNewCard(event, inputsValues) {
   event.preventDefault();
   cardsContainer.addItem(
     addCard({
-      name: popUpPlace.value,
-      link: popUpLink.value,
+      name: inputsValues["place-name"],
+      link: inputsValues["place-link"],
     })
   );
 }
 
-function handleSaveProfile(event, values) {
+function handleSaveProfile(event, {name, data}) {
   event.preventDefault();
 
-  profileName.textContent = values[0];
-  profileJob.textContent = values[1];
+  profileName.textContent = name;
+  profileJob.textContent = data;
 }
 
 cardsContainer.renderItems();
 
 popupEdit.setEventsListeners();
 popupAdd.setEventsListeners();
+popupViewer.setEventsListeners();
 
 btnEditProfile.addEventListener("click", handleEditProfile);
 btnAddNewCard.addEventListener("click", handleAddNewCard);

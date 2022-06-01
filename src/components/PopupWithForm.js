@@ -25,11 +25,6 @@ export default class PopupWithForm extends Popup {
     return this._form;
   }
 
-  setInputsValues({ name, data }) {
-    this._inputs[0].value = name;
-    this._inputs[1].value = data;
-  }
-
   close() {
     this._form.reset();
     super.close();

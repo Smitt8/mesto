@@ -1,45 +1,44 @@
-import '../pages/index.css';
+import "./index.css";
 
-import Card from "./Card.js";
-import { initialCards } from "./data.js";
-import FormValidator from "./FormValidator.js";
-import Section from "./Section.js";
-import PopupWithForm from "./PopupWithForm.js";
-import PopupWithImg from "./PopupWithImg.js";
-import UserInfo from "./UserInfo.js";
+import Card from "../components/Card";
+import { initialCards } from "../utils/data.js";
+import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImg from "../components/PopupWithImg.js";
+import UserInfo from "../components/UserInfo.js";
 
-const content = document.querySelector(".content");
+import {
+  btnEditProfile,
+  btnAddNewCard,
+  config,
+  profileConfig,
+  popupTypesConfig,
+  popUpName,
+  popUpAbout
+} from "../utils/constants";
 
-const profile = content.querySelector(".profile");
-const btnEditProfile = profile.querySelector(".profile__edit-btn");
-const btnAddNewCard = profile.querySelector(".profile__add-btn");
-
-const userInfo = new UserInfo(".profile__name", ".profile__about");
-
-const config = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  imgSelector: ".popup__img",
-  textSelector: ".popup__text",
-  submitButtonSelector: ".popup__save",
-  inactiveButtonClass: "button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-};
+const userInfo = new UserInfo(
+  profileConfig.nameSelector,
+  profileConfig.aboutSelector
+);
 
 const popupEdit = new PopupWithForm(
-  ".popup_type_edit",
+  popupTypesConfig.popupEditSelector,
   config,
   handleSaveProfile
 );
 
 const popupAdd = new PopupWithForm(
-  ".popup_type_add",
+  popupTypesConfig.popupAddSelector,
   config,
   handleCreateNewCard
 );
 
-const popupViewer = new PopupWithImg(".popup_type_viewer", config);
+const popupViewer = new PopupWithImg(
+  popupTypesConfig.popupViewerSelector,
+  config
+);
 
 const formAddValidator = new FormValidator(config, popupAdd.getForm());
 const formEditValidator = new FormValidator(config, popupEdit.getForm());
@@ -60,7 +59,9 @@ function addCard(cardData) {
 }
 
 function handleEditProfile() {
-  popupEdit.setInputsValues(userInfo.getUserInfo());
+  const userObject = userInfo.getUserInfo();
+  popUpName.value = userObject.name;
+  popUpAbout.value = userObject.data;
   formEditValidator.resetValidation();
   popupEdit.open();
 }

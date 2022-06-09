@@ -1,0 +1,12 @@
+.card__btn-like {
+  width: 22px;
+  height: 19px;
+  border: 0;
+  background-color: #fff;
+  background-image: url(../../../images/photo-grid/photo-grid__like.svg);
+  background-repeat: no-repeat;
+}
+
+.card__btn-like:hover {
+  opacity: 0.5;
+}

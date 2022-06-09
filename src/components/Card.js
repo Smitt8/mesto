@@ -14,7 +14,7 @@ export default class Card {
   };
 
   _toggleLike = () => {
-    this._btnLikeCard.classList.toggle("card__like_active");
+    this._btnLikeCard.classList.toggle("card__btn-like_active");
   };
 
   _removeCard = () => {
@@ -33,7 +33,7 @@ export default class Card {
   createCard = () => {
     this._element = this._getTemplate();
 
-    this._btnLikeCard = this._element.querySelector(".card__like");
+    this._btnLikeCard = this._element.querySelector(".card__btn-like");
     this._btnRemoveCard = this._element.querySelector(".card__remove");
     this._cardImage = this._element.querySelector(".card__photo");
 

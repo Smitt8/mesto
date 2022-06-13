@@ -1,7 +1,6 @@
 import "./index.css";
 
 import Card from "../components/Card";
-import { initialCards } from "../utils/data.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
@@ -46,7 +45,7 @@ const popupViewer = new PopupWithImg(
   config
 );
 
-const popupConfirm = new PopupConfirm(popupTypesConfig.popupConfirmSelector, config)
+const popupConfirm = new PopupConfirm(popupTypesConfig.popupConfirmSelector, config, handleDeleteCard)
 
 const formAddValidator = new FormValidator(config, popupAdd.getForm());
 const formEditValidator = new FormValidator(config, popupEdit.getForm());
@@ -75,7 +74,7 @@ api.getUserInfo()
 
 
 function addCard(cardData) {
-  const newCard = new Card(cardData, "#template-card", popupViewer.open, handleDeleteCard);
+  const newCard = new Card(cardData, "#template-card", popupViewer.open, popupConfirm.open);
   return newCard.createCard(userInfo.getId());
 }
 

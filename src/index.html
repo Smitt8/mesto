@@ -78,6 +78,13 @@
       <figcaption class="popup__text"></figcaption>
     </figure>
   </div>
+  <div class="popup popup_type_confirm">
+    <div class="popup__container popup__container_type_confirm">
+      <button class="button popup__close-btn" type="button" aria-label="Закрыть"></button>
+      <h2 class="popup__title">Вы уверены?</h2>
+      <button type="button" value="Да" class="button popup__save" aria-label="Да">Да</button>
+    </div>
+  </div>
   <template id="template-card">
     <li class="card">
       <img class="card__photo">
@@ -86,7 +93,7 @@
         <h3 class="card__heading"></h3>
         <div class="card__like">
           <button class="button card__btn-like" type="button" aria-label="Поставить лайк"></button>
-          <p class="card__cnt-like"></p>
+          <p class="card__cnt-like">0</p>
         </div>
       </div>
     </li>

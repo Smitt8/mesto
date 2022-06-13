@@ -26,5 +26,6 @@ export const config = {
 export const popupTypesConfig = {
   popupEditSelector: ".popup_type_edit",
   popupAddSelector:".popup_type_add",
-  popupViewerSelector: ".popup_type_viewer"
+  popupViewerSelector: ".popup_type_viewer",
+  popupConfirmSelector: ".popup_type_confirm"
 };

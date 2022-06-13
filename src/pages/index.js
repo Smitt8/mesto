@@ -6,6 +6,7 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImg from "../components/PopupWithImg.js";
+import PopupConfirm from "../components/PopupConfirm.js";
 import UserInfo from "../components/UserInfo.js";
 
 import {
@@ -40,6 +41,8 @@ const popupViewer = new PopupWithImg(
   config
 );
 
+const popupConfirm = new PopupConfirm(popupTypesConfig.popupConfirmSelector, config)
+
 const formAddValidator = new FormValidator(config, popupAdd.getForm());
 const formEditValidator = new FormValidator(config, popupEdit.getForm());
 
@@ -47,14 +50,17 @@ const cardsContainer = new Section(
   {
     items: initialCards,
     renderer: (card) => {
-      cardsContainer.addItem(addCard(card));
+      cardsContainer.addItem(addCard(card, false));
     },
   },
   ".cards"
 );
 
-function addCard(cardData) {
-  const newCard = new Card(cardData, "#template-card", popupViewer.open);
+function addCard(cardData, isOwner) {
+  const newCard = new Card(cardData, "#template-card", {
+    handleViewer: popupViewer.open,
+    handleRemove: popupConfirm.open
+  }, isOwner);
   return newCard.createCard();
 }
 
@@ -77,7 +83,7 @@ function handleCreateNewCard(event, inputsValues) {
     addCard({
       name: inputsValues["place-name"],
       link: inputsValues["place-link"],
-    })
+    }, true)
   );
 }
 
@@ -95,6 +101,7 @@ cardsContainer.renderItems();
 popupEdit.setEventsListeners();
 popupAdd.setEventsListeners();
 popupViewer.setEventsListeners();
+popupConfirm.setEventsListeners();
 
 formAddValidator.enableValidation();
 formEditValidator.enableValidation();

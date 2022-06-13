@@ -28,3 +28,9 @@ export const popupTypesConfig = {
   popupAddSelector:".popup_type_add",
   popupViewerSelector: ".popup_type_viewer"
 };
+
+export const serverConfig = {
+  url: 'https://mesto.nomoreparties.co',
+  token: '62ca9a86-8eaa-474b-a40e-721345246b87',
+  cohort: 'cohort-43'
+};

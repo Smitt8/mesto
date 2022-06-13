@@ -7,6 +7,7 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImg from "../components/PopupWithImg.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
 
 import {
   btnEditProfile,
@@ -15,12 +16,17 @@ import {
   profileConfig,
   popupTypesConfig,
   popUpName,
-  popUpAbout
+  popUpAbout,
+  serverConfig
 } from "../utils/constants";
+
+const api = new Api(serverConfig);
 
 const userInfo = new UserInfo(
   profileConfig.nameSelector,
-  profileConfig.aboutSelector
+  profileConfig.aboutSelector,
+  api.getUserInfo,
+  api.patchUserInfo
 );
 
 const popupEdit = new PopupWithForm(

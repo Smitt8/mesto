@@ -6,6 +6,7 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImg from "../components/PopupWithImg.js";
+import PopupConfirm from "../components/PopupConfirm.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 
@@ -44,6 +45,8 @@ const popupViewer = new PopupWithImg(
   popupTypesConfig.popupViewerSelector,
   config
 );
+
+const popupConfirm = new PopupConfirm(popupTypesConfig.popupConfirmSelector, config)
 
 const formAddValidator = new FormValidator(config, popupAdd.getForm());
 const formEditValidator = new FormValidator(config, popupEdit.getForm());
@@ -129,6 +132,7 @@ function handleSaveProfile(event, inputsValues) {
 popupEdit.setEventsListeners();
 popupAdd.setEventsListeners();
 popupViewer.setEventsListeners();
+popupConfirm.setEventsListeners();
 
 formAddValidator.enableValidation();
 formEditValidator.enableValidation();

@@ -1,0 +1,16 @@
+.popup__container_type_confirm {
+  width: 100%;
+  max-width: 430px;
+  max-height: 181px;
+  background-color: #fff;
+  row-gap: 4px;
+  border-radius: 10px;
+  padding: 34px 36px 37px;
+}
+
+@media screen and (max-width: 574px) {
+  .popup__container_type_input {
+    max-width: 282px;
+    padding: 26px 22px;
+  }
+}

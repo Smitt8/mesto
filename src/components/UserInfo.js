@@ -1,24 +1,14 @@
 export default class UserInfo {
-  constructor(nameSelector, aboutSelector, handlerLoadUserInfo, handlerEditUserInfo) {
+  constructor(nameSelector, aboutSelector) {
     this._nameSelector = nameSelector;
     this._aboutSelector = aboutSelector;
     
-    this._handlerEditUserInfo = handlerEditUserInfo;
-    this._handlerLoadUserInfo = handlerLoadUserInfo;
-
     this._nameField = document.querySelector(this._nameSelector);
     this._aboutField = document.querySelector(this._aboutSelector);
 
-    handlerLoadUserInfo()
-      .then(userData => {
-        this._updUserInfo(userData);
-      })
-      .catch(err => {
-        console.log(err);
-      });
   }
 
-  _updUserInfo({ name, about, _id, avatar, cohort }) {
+  setUserInfo({ name, about, _id, avatar, cohort }) {
     this._name = name;
     this._about = about;
     this._id = _id;
@@ -29,23 +19,17 @@ export default class UserInfo {
     this._aboutField.textContent = this._about;
   }
 
-
-  setUserInfo({ name, about }) {
-    this._handlerEditUserInfo(name, about)
-      .then(data => {
-        this._updUserInfo(data);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-
-  
+  getId() {
+    return this._id;
   }
 
   getUserInfo() {
     return {
       name: this._name,
-      data: this._about,
+      about: this._about,
+      avatar: this._avatar,
+      _id: this._id,
+      cohort: this._cohort
     };
   }
 }

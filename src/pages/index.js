@@ -25,8 +25,7 @@ const api = new Api(serverConfig);
 const userInfo = new UserInfo(
   profileConfig.nameSelector,
   profileConfig.aboutSelector,
-  api.getUserInfo,
-  api.patchUserInfo
+  profileConfig.avatarSelector,
 );
 
 const popupEdit = new PopupWithForm(
@@ -50,24 +49,37 @@ const formAddValidator = new FormValidator(config, popupAdd.getForm());
 const formEditValidator = new FormValidator(config, popupEdit.getForm());
 
 const cardsContainer = new Section(
-  {
-    items: initialCards,
-    renderer: (card) => {
+    (card) => {
       cardsContainer.addItem(addCard(card));
     },
-  },
   ".cards"
 );
 
+api.getUserInfo() 
+  .then(userData => {
+    userInfo.setUserInfo(userData);
+    return api.getCards()
+  })
+  .then((cards) => {
+    cardsContainer.saveCards(cards);
+  })
+  .finally(()=> {
+    cardsContainer.renderItems();
+  })
+  .catch(err => {
+    console.log(err);
+  });
+
+
 function addCard(cardData) {
-  const newCard = new Card(cardData, "#template-card", popupViewer.open);
-  return newCard.createCard();
+  const newCard = new Card(cardData, "#template-card", popupViewer.open, handleDeleteCard);
+  return newCard.createCard(userInfo.getId());
 }
 
 function handleEditProfile() {
   const userObject = userInfo.getUserInfo();
   popUpName.value = userObject.name;
-  popUpAbout.value = userObject.data;
+  popUpAbout.value = userObject.about;
   formEditValidator.resetValidation();
   popupEdit.open();
 }
@@ -79,24 +91,40 @@ function handleAddNewCard() {
 
 function handleCreateNewCard(event, inputsValues) {
   event.preventDefault();
-  cardsContainer.addItem(
-    addCard({
-      name: inputsValues["place-name"],
-      link: inputsValues["place-link"],
+  api.postCard(inputsValues["place-name"], inputsValues["place-link"])
+    .then(card => {
+      cardsContainer.addItem(
+        addCard(card)
+      );
     })
-  );
+    .catch(err => {
+      console.log(err)
+    });
+}
+
+function handleDeleteCard(card) {
+  api.deleteCard(card.getID())
+    .then(result => {
+      card.removeCard();
+    })
+    .catch(err => {
+      console.log(err)
+    });
 }
 
 function handleSaveProfile(event, inputsValues) {
   event.preventDefault();
 
-  userInfo.setUserInfo({
-    name: inputsValues["user-name"],
-    about: inputsValues["user-about"],
-  });
+  api.patchUserInfo(inputsValues["user-name"], inputsValues["user-about"])
+    .then(result => {
+      userInfo.setUserInfo(result);
+    })
+    .catch(err => {
+      console.log(err)
+    });
 }
 
-cardsContainer.renderItems();
+// cardsContainer.renderItems();
 
 popupEdit.setEventsListeners();
 popupAdd.setEventsListeners();

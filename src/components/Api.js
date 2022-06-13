@@ -36,4 +36,42 @@ export default class Api {
       return Promise.reject(`Ошибка: ${result.statusText}`);
     });
   }
+
+  getCards = () => {
+    return fetch(`${this._url}/cards`, {
+      headers: this._headers,
+    }).then(result => {
+      if(result.ok) {
+        return result.json();
+      }
+      return Promise.reject(`Ошибка: ${result.statusText}`);
+    });
+  }
+  postCard = (name, link) => {
+    return fetch(`${this._url}/cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        link: link
+      }),
+    })
+    .then(result => {
+      if(result.ok) {
+        return result.json();
+      }
+      return Promise.reject(`Ошибка: ${result.statusText}`);
+    })
+  }
+  deleteCard = (cardId) => {
+    return fetch(`${this._url}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: this._headers,
+    }).then(result => {
+      if(result.ok) {
+        return result.json();
+      }
+      return Promise.reject(`Ошибка: ${result.statusText}`);
+    });
+  }
 }

@@ -6,7 +6,8 @@ export const btnAddNewCard = profile.querySelector(".profile__add-btn");
 
 export const profileConfig = {
   nameSelector: ".profile__name",
-  aboutSelector: ".profile__about"
+  aboutSelector: ".profile__about",
+  avatarSelector: ".profile__avatar"
 };
 
 export const popUpName = document.querySelector(".popup__input_type_name");

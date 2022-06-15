@@ -57,21 +57,17 @@ const cardsContainer = new Section(
   ".cards"
 );
 
-api.getUserInfo() 
-  .then(userData => {
-    userInfo.setUserInfo(userData);
-    return api.getCards()
-  })
-  .then((cards) => {
-    cardsContainer.saveCards(cards);
-  })
-  .finally(()=> {
-    cardsContainer.renderItems();
-  })
-  .catch(err => {
-    console.log(err);
-  });
-
+Promise.all([api.getUserInfo(), api.getCards()])
+    .then(([userData, cards]) => {
+      userInfo.setUserInfo(userData);
+      cardsContainer.saveCards(cards.reverse());
+    })
+    .finally(()=> {
+      cardsContainer.renderItems();
+    })
+    .catch(err => {
+      console.log(err);
+    });
 
 function addCard(cardData) {
   const newCard = new Card(cardData, "#template-card", popupViewer.open, popupConfirm.open);

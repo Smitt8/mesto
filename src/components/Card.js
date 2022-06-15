@@ -51,8 +51,12 @@ export default class Card {
     if (userId !== this._getOwnerId()) {
       this._btnRemoveCard.classList.add('card__remove_disabled');
     }
+
+    this._cntLikes = this._element.querySelector('.card__cnt-like');
+
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
+    this._cntLikes.textContent = this._likes.length;
 
     this._element.querySelector(".card__heading").textContent = this._name;
 

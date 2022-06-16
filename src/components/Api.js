@@ -47,6 +47,7 @@ export default class Api {
       return Promise.reject(`Ошибка: ${result.statusText}`);
     });
   }
+
   postCard = (name, link) => {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
@@ -63,8 +64,33 @@ export default class Api {
       return Promise.reject(`Ошибка: ${result.statusText}`);
     })
   }
+
   deleteCard = (cardId) => {
     return fetch(`${this._url}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: this._headers,
+    }).then(result => {
+      if(result.ok) {
+        return result.json();
+      }
+      return Promise.reject(`Ошибка: ${result.statusText}`);
+    });
+  }
+
+  likeCard = (cardId) => {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
+      method: 'PUT',
+      headers: this._headers,
+    }).then(result => {
+      if(result.ok) {
+        return result.json();
+      }
+      return Promise.reject(`Ошибка: ${result.statusText}`);
+    });
+  }
+
+  dislikeCard = (cardId) => {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: 'DELETE',
       headers: this._headers,
     }).then(result => {

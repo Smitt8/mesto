@@ -17,7 +17,7 @@ import {
   popupTypesConfig,
   popUpName,
   popUpAbout,
-  serverConfig
+  serverConfig,
 } from "../utils/constants";
 
 const api = new Api(serverConfig);
@@ -25,7 +25,7 @@ const api = new Api(serverConfig);
 const userInfo = new UserInfo(
   profileConfig.nameSelector,
   profileConfig.aboutSelector,
-  profileConfig.avatarSelector,
+  profileConfig.avatarSelector
 );
 
 const popupEdit = new PopupWithForm(
@@ -45,32 +45,38 @@ const popupViewer = new PopupWithImg(
   config
 );
 
-const popupConfirm = new PopupConfirm(popupTypesConfig.popupConfirmSelector, config, handleDeleteCard)
+const popupConfirm = new PopupConfirm(
+  popupTypesConfig.popupConfirmSelector,
+  config,
+  handleDeleteCard
+);
 
 const formAddValidator = new FormValidator(config, popupAdd.getForm());
 const formEditValidator = new FormValidator(config, popupEdit.getForm());
 
-const cardsContainer = new Section(
-    (card) => {
-      cardsContainer.addItem(addCard(card));
-    },
-  ".cards"
-);
+const cardsContainer = new Section((card) => {
+  cardsContainer.addItem(addCard(card));
+}, ".cards");
 
 Promise.all([api.getUserInfo(), api.getCards()])
-    .then(([userData, cards]) => {
-      userInfo.setUserInfo(userData);
-      cardsContainer.saveCards(cards.reverse());
-    })
-    .finally(()=> {
-      cardsContainer.renderItems();
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  .then(([userData, cards]) => {
+    userInfo.setUserInfo(userData);
+    cardsContainer.saveCards(cards.reverse());
+  })
+  .finally(() => {
+    cardsContainer.renderItems();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 function addCard(cardData) {
-  const newCard = new Card(cardData, "#template-card", popupViewer.open, popupConfirm.open);
+  const newCard = new Card(cardData, "#template-card", {
+    handleViewer: popupViewer.open,
+    handleDelete: popupConfirm.open,
+    handleLike: handleLikeCard,
+    handleDislike: handleDislikeCard
+  });
   return newCard.createCard(userInfo.getId());
 }
 
@@ -89,36 +95,59 @@ function handleAddNewCard() {
 
 function handleCreateNewCard(event, inputsValues) {
   event.preventDefault();
-  api.postCard(inputsValues["place-name"], inputsValues["place-link"])
-    .then(card => {
-      cardsContainer.addItem(
-        addCard(card)
-      );
+  api
+    .postCard(inputsValues["place-name"], inputsValues["place-link"])
+    .then((card) => {
+      cardsContainer.addItem(addCard(card));
     })
-    .catch(err => {
-      console.log(err)
+    .catch((err) => {
+      console.log(err);
     });
 }
 
 function handleDeleteCard(card) {
-  api.deleteCard(card.getID())
-    .then(result => {
+  api
+    .deleteCard(card.getID())
+    .then((result) => {
       card.removeCard();
     })
-    .catch(err => {
-      console.log(err)
+    .catch((err) => {
+      console.log(err);
     });
 }
 
 function handleSaveProfile(event, inputsValues) {
   event.preventDefault();
 
-  api.patchUserInfo(inputsValues["user-name"], inputsValues["user-about"])
-    .then(result => {
+  api
+    .patchUserInfo(inputsValues["user-name"], inputsValues["user-about"])
+    .then((result) => {
       userInfo.setUserInfo(result);
     })
-    .catch(err => {
-      console.log(err)
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+function handleLikeCard(card) {
+  api
+    .likeCard(card.getID())
+    .then((newCard) => {
+      card.updCardLike(newCard);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+function handleDislikeCard(card) {
+  api
+    .dislikeCard(card.getID())
+    .then((newCard) => {
+      card.updCardLike(newCard);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 }
 

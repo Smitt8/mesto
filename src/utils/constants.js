@@ -3,6 +3,7 @@ const content = document.querySelector(".content");
 const profile = content.querySelector(".profile");
 export const btnEditProfile = profile.querySelector(".profile__edit-btn");
 export const btnAddNewCard = profile.querySelector(".profile__add-btn");
+export const btnChangeAvatar = profile.querySelector(".profile__overlay");
 
 export const profileConfig = {
   nameSelector: ".profile__name",
@@ -28,7 +29,8 @@ export const popupTypesConfig = {
   popupEditSelector: ".popup_type_edit",
   popupAddSelector:".popup_type_add",
   popupViewerSelector: ".popup_type_viewer",
-  popupConfirmSelector: ".popup_type_confirm"
+  popupConfirmSelector: ".popup_type_confirm",
+  popupAvatarSelector: ".popup_type_avatar"
 };
 
 export const serverConfig = {

@@ -87,6 +87,20 @@
       <button type="button" value="Да" class="button popup__save" aria-label="Да">Да</button>
     </div>
   </div>
+  <div class="popup popup_type_avatar">
+    <div class="popup__container popup__container_type_input">
+      <button class="button popup__close-btn" type="button" aria-label="Закрыть"></button>
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form class="popup__form" name="new-avatar" novalidate>
+        <label class="popup__label">
+          <input type="url" name="user-avatar" id="user-avatar" class="popup__input popup__input_type_place"
+            placeholder="Название" minlength="2" maxlength="80" required>
+          <span class="popup__error" id="user-avatar-error"></span>
+        </label>
+        <button type="submit" value="Сохранить" class="button popup__save" aria-label="Сохранить">Сохранить</button>
+      </form>
+    </div>
+  </div>
   <template id="template-card">
     <li class="card">
       <img class="card__photo">

@@ -21,6 +21,7 @@ export default class Api {
       return Promise.reject(`Ошибка: ${result.statusText}`);
     });
   }
+
   patchUserInfo = (name, about) => {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
@@ -28,6 +29,21 @@ export default class Api {
       body: JSON.stringify({ 
         name: name,
         about: about 
+      }),
+    }).then(result => {
+      if (result.ok) {
+        return result.json();
+      }
+      return Promise.reject(`Ошибка: ${result.statusText}`);
+    });
+  }
+
+  changeAvatar = (avatar) => {
+    return fetch(`${this._url}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({ 
+        avatar: avatar,
       }),
     }).then(result => {
       if (result.ok) {

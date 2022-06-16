@@ -12,6 +12,7 @@ import Api from "../components/Api.js";
 import {
   btnEditProfile,
   btnAddNewCard,
+  btnChangeAvatar,
   config,
   profileConfig,
   popupTypesConfig,
@@ -51,8 +52,15 @@ const popupConfirm = new PopupConfirm(
   handleDeleteCard
 );
 
+const popupAvatar = new PopupWithForm(
+  popupTypesConfig.popupAvatarSelector,
+  config,
+  handleChangeAvatar
+);
+
 const formAddValidator = new FormValidator(config, popupAdd.getForm());
 const formEditValidator = new FormValidator(config, popupEdit.getForm());
+const formAvatarValidator = new FormValidator(config, popupAvatar.getForm());
 
 const cardsContainer = new Section((card) => {
   cardsContainer.addItem(addCard(card));
@@ -93,6 +101,11 @@ function handleAddNewCard() {
   popupAdd.open();
 }
 
+function handleNewAvatar() {
+  formAvatarValidator.resetValidation();
+  popupAvatar.open();
+}
+
 function handleCreateNewCard(event, inputsValues) {
   event.preventDefault();
   api
@@ -105,10 +118,22 @@ function handleCreateNewCard(event, inputsValues) {
     });
 }
 
+function handleChangeAvatar(event, inputsValues) {
+  event.preventDefault();
+  api
+    .changeAvatar(inputsValues["user-avatar"])
+    .then((userData) => {
+      userInfo.setUserInfo(userData);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
 function handleDeleteCard(card) {
   api
     .deleteCard(card.getID())
-    .then((result) => {
+    .then(() => {
       card.removeCard();
     })
     .catch((err) => {
@@ -157,9 +182,12 @@ popupEdit.setEventsListeners();
 popupAdd.setEventsListeners();
 popupViewer.setEventsListeners();
 popupConfirm.setEventsListeners();
+popupAvatar.setEventsListeners();
 
 formAddValidator.enableValidation();
 formEditValidator.enableValidation();
+formAvatarValidator.enableValidation();
 
 btnEditProfile.addEventListener("click", handleEditProfile);
 btnAddNewCard.addEventListener("click", handleAddNewCard);
+btnChangeAvatar.addEventListener('click', handleNewAvatar);

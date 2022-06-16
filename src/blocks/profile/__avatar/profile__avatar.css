@@ -1,8 +1,8 @@
 .profile__avatar {
   max-width: 119px;
   max-height: 119px;
-  object-fit: cover;
-  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
 }
 
 @media screen and (max-width: 1200px){

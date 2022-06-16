@@ -10,6 +10,12 @@ export default class UserInfo {
 
   }
 
+  updUserInfo() {
+    this._nameField.textContent = this._name;
+    this._aboutField.textContent = this._about;
+    this._avatarImg.src = this._avatar;
+  }
+
   setUserInfo({ name, about, _id, avatar, cohort }) {
     this._name = name;
     this._about = about;
@@ -17,9 +23,6 @@ export default class UserInfo {
     this._avatar = avatar;
     this._cohort = cohort;
 
-    this._nameField.textContent = this._name;
-    this._aboutField.textContent = this._about;
-    this._avatarImg.src = this._avatar;
   }
 
   getId() {

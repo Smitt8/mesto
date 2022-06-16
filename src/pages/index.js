@@ -72,6 +72,7 @@ Promise.all([api.getUserInfo(), api.getCards()])
     cardsContainer.saveCards(cards.reverse());
   })
   .finally(() => {
+    userInfo.updUserInfo();
     cardsContainer.renderItems();
   })
   .catch((err) => {
@@ -113,6 +114,9 @@ function handleCreateNewCard(event, inputsValues) {
     .then((card) => {
       cardsContainer.addItem(addCard(card));
     })
+    .finally(()=> {
+      popupAdd.close();
+    })
     .catch((err) => {
       console.log(err);
     });
@@ -124,6 +128,10 @@ function handleChangeAvatar(event, inputsValues) {
     .changeAvatar(inputsValues["user-avatar"])
     .then((userData) => {
       userInfo.setUserInfo(userData);
+    })
+    .finally(()=> {
+      userInfo.updUserInfo();
+      popupAvatar.close();
     })
     .catch((err) => {
       console.log(err);
@@ -148,6 +156,10 @@ function handleSaveProfile(event, inputsValues) {
     .patchUserInfo(inputsValues["user-name"], inputsValues["user-about"])
     .then((result) => {
       userInfo.setUserInfo(result);
+    })
+    .finally( () => {
+      userInfo.updUserInfo();
+      popupEdit.close();
     })
     .catch((err) => {
       console.log(err);

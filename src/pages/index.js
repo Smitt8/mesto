@@ -21,7 +21,13 @@ import {
   serverConfig,
 } from "../utils/constants";
 
-const api = new Api(serverConfig);
+const api = new Api({
+  url: `${serverConfig.url}/v1/${serverConfig.cohort}`,
+  headers: {
+    "Content-type": "application/json",
+    authorization: `${serverConfig.token}`,
+  },
+});
 
 const userInfo = new UserInfo(
   profileConfig.nameSelector,
@@ -69,11 +75,7 @@ const cardsContainer = new Section((card) => {
 Promise.all([api.getUserInfo(), api.getCards()])
   .then(([userData, cards]) => {
     userInfo.setUserInfo(userData);
-    cardsContainer.saveCards(cards.reverse());
-  })
-  .finally(() => {
-    userInfo.updUserInfo();
-    cardsContainer.renderItems();
+    cardsContainer.renderItems(cards.reverse());
   })
   .catch((err) => {
     console.log(err);
@@ -84,7 +86,7 @@ function addCard(cardData) {
     handleViewer: popupViewer.open,
     handleDelete: popupConfirm.open,
     handleLike: handleLikeCard,
-    handleDislike: handleDislikeCard
+    handleDislike: handleDislikeCard,
   });
   return newCard.createCard(userInfo.getId());
 }
@@ -109,13 +111,16 @@ function handleNewAvatar() {
 
 function handleCreateNewCard(event, inputsValues) {
   event.preventDefault();
+  popupAdd.setSubmitText("Сохранение...");
+
   api
     .postCard(inputsValues["place-name"], inputsValues["place-link"])
     .then((card) => {
       cardsContainer.addItem(addCard(card));
-    })
-    .finally(()=> {
       popupAdd.close();
+    })
+    .finally(() => {
+      popupAdd.setSubmitText("Создать");
     })
     .catch((err) => {
       console.log(err);
@@ -124,14 +129,16 @@ function handleCreateNewCard(event, inputsValues) {
 
 function handleChangeAvatar(event, inputsValues) {
   event.preventDefault();
+  popupAvatar.setSubmitText("Сохранение...");
+
   api
     .changeAvatar(inputsValues["user-avatar"])
     .then((userData) => {
       userInfo.setUserInfo(userData);
-    })
-    .finally(()=> {
-      userInfo.updUserInfo();
       popupAvatar.close();
+    })
+    .finally(() => {
+      popupAvatar.setSubmitText("Сохранить");
     })
     .catch((err) => {
       console.log(err);
@@ -143,6 +150,7 @@ function handleDeleteCard(card) {
     .deleteCard(card.getID())
     .then(() => {
       card.removeCard();
+      popupConfirm.close();
     })
     .catch((err) => {
       console.log(err);
@@ -151,15 +159,16 @@ function handleDeleteCard(card) {
 
 function handleSaveProfile(event, inputsValues) {
   event.preventDefault();
+  popupEdit.setSubmitText("Сохранение...");
 
   api
     .patchUserInfo(inputsValues["user-name"], inputsValues["user-about"])
     .then((result) => {
       userInfo.setUserInfo(result);
-    })
-    .finally( () => {
-      userInfo.updUserInfo();
       popupEdit.close();
+    })
+    .finally(() => {
+      popupEdit.setSubmitText("Сохранить");
     })
     .catch((err) => {
       console.log(err);
@@ -188,8 +197,6 @@ function handleDislikeCard(card) {
     });
 }
 
-// cardsContainer.renderItems();
-
 popupEdit.setEventsListeners();
 popupAdd.setEventsListeners();
 popupViewer.setEventsListeners();
@@ -202,4 +209,4 @@ formAvatarValidator.enableValidation();
 
 btnEditProfile.addEventListener("click", handleEditProfile);
 btnAddNewCard.addEventListener("click", handleAddNewCard);
-btnChangeAvatar.addEventListener('click', handleNewAvatar);
+btnChangeAvatar.addEventListener("click", handleNewAvatar);
